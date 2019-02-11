@@ -15,21 +15,22 @@ company = Stock(tickers, output_format='pandas')
 info = company.get_company()
 quote = company.get_quote()
 keystat = company.get_key_stats()
-news = company.get_news()
+#news = company.get_news()
+#dfnews = pandas.DataFrame(news)
 peers = company.get_peers()
+dfpeers = pandas.DataFrame(peers)
 dividends = company.get_dividends()
 financials = company.get_financials()
 chart = company.get_chart()
+
+
 
 #Stock data is written into a single excel workbook
 with pandas.ExcelWriter('new.xlsx') as writer:
     info.to_excel(writer, sheet_name='Info')
     quote.to_excel(writer, sheet_name='Quote')
     keystat.to_excel(writer, sheet_name='Key Stats')
-    #news and peers return 'dict' object has no attribute 'to_excel'
-    #The other ones work perfectly?
-    news.to_excel(writer, sheet_name='News', index=False)
-    peers.to_excel(writer, sheet_name='Peers', index=False)
-    #^^^^
+    #dfnews.to_excel(writer, sheet_name='News', index=False)
+    dfpeers.to_excel(writer, sheet_name='Peers', index=False)
     dividends.to_excel(writer, sheet_name='Dividends')
     chart.to_excel(writer, sheet_name='Chart')
